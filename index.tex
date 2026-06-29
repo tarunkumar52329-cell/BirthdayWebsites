@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! 🎂</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #ff4b91;
+            --secondary-color: #ff8a5c;
+            --accent-color: #ffc75f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Animated Gradient Background */
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .card {
+            width: 90%;
+            max-width: 420px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            z-index: 10;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .card h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .card h2 {
+            font-size: 1.6rem;
+            color: #fff8b0;
+            margin-bottom: 20px;
+        }
+
+        .card p {
+            line-height: 1.6;
+            font-size: 1.05rem;
+            margin-bottom: 25px;
+        }
+
+        button {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            background: white;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            outline: none;
+        }
+
+        button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 25px rgba(255, 255, 255, 0.4);
+            background: #fff8b0;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        #message {
+            margin-top: 25px;
+            font-size: 20px;
+            font-weight: 500;
+            display: none;
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 15px;
+            animation: pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes pop {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Confetti Styling */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Floating Balloons */
+        .balloon {
+            position: absolute;
+            bottom: -150px;
+            opacity: 0.7;
+            z-index: 5;
+            animation: floatUp 10s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-120vh) rotate(20deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>🎉 Happy Birthday 🎉</h1>
+        <h2>Dear Best Friend ❤️</h2>
+        <p>
+            May your birthday be filled with happiness, laughter, 
+            love, success, and unforgettable memories. 
+            May all your dreams come true!
+        </p>
+        
+        <button onclick="showWish()">Click for a Surprise 🎁</button>
+
+        <div id="message">
+            🎈 Wishing you endless happiness and lots of love! ❤️✨
+        </div>
+    </div>
+
+    <script>
+        const colors = ["#ff0a54", "#ff477e", "#ff85a1", "#fbb1bd", "#ffd60a", "#00f5d4", "#70e000", "#ffffff", "#4cc9f0"];
+
+        function createConfetti(isBurst = false) {
+            const confetti = document.createElement("div");
+            confetti.classList.add("confetti");
+            
+            // Random styling
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.background = color;
+            confetti.style.left = Math.random() * 100 + "vw";
+            
+            // If it's a burst, start from the middle/bottom area
+            if(isBurst) {
+                confetti.style.top = "50vh";
+                confetti.style.left = "50vw";
+                confetti.style.width = "12px";
+                confetti.style.height = "12px";
+            } else {
+                confetti.style.top = "-5vh";
+            }
+
+            const duration = (Math.random() * 3 + 3);
+            confetti.style.animation = `fall ${duration}s linear forwards`;
+            
+            // Add variety in shapes
+            if(Math.random() > 0.5) confetti.style.borderRadius = "50%";
+
+            document.body.appendChild(confetti);
+
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
+        }
+
+        function showWish() {
+            const msg = document.getElementById("message");
+            msg.style.display = "block";
+            
+            // Trigger massive burst
+            for(let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    createConfetti(true);
+                }, i * 5);
+            }
+            
+            // Change button text
+            const btn = document.querySelector('button');
+            btn.innerHTML = "Enjoy Your Day! 🥳";
+            btn.style.background = "#fff8b0";
+        }
+
+        // Background steady rain of confetti
+        setInterval(createConfetti, 300);
+
+        // Add some random floating balloons
+        function createBalloon() {
+            const balloon = document.createElement("div");
+            balloon.className = "balloon";
+            const emojis = ['🎈', '✨', '💖', '🎂', '⭐'];
+            balloon.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+            balloon.style.fontSize = Math.random() * 30 + 20 + "px";
+            balloon.style.left = Math.random() * 100 + "vw";
+            balloon.style.animationDuration = Math.random() * 5 + 5 + "s";
+            document.body.appendChild(balloon);
+            
+            setTimeout(() => {
+                balloon.remove();
+            }, 10000);
+        }
+
+        setInterval(createBalloon, 2000);
+    </script>
+</body>
+</html>
